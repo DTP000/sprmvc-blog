@@ -1,10 +1,13 @@
 package tk.dtp000.sprhibnmvc.blog.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,15 +24,20 @@ public class Account {
 	@Column(name="password")
 	private String password;
 
+	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="author_id")
+	private Author author;
+
 	public Account() {
 		super();
 	}
 
-	public Account(int id, String username, String password) {
+	public Account(int id, String username, String password, Author author) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.author = author;
 	}
 
 	public int getId() {
@@ -54,6 +62,14 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 	
 }
